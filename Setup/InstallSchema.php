@@ -31,10 +31,16 @@ class InstallSchema implements InstallSchemaInterface
             'Faqs Question'
         )->addColumn(
             'product_id',
-            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
-            255,
-            ['nullable' => false ],
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['nullable' => false, 'unsigned' => true],
             'Faqs product_id'
+        )->addColumn(
+            'customer_id',
+            \Magento\Framework\DB\Ddl\Table::TYPE_INTEGER,
+            null,
+            ['unsigned' => true],
+            'Faqs customer_id'
         )->addColumn(
             'answer',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
@@ -59,6 +65,18 @@ class InstallSchema implements InstallSchemaInterface
             255,
             ['nullable' => false, 'default' => \Magento\Framework\DB\Ddl\Table::TIMESTAMP_INIT_UPDATE],
             'Faqs updated_at'
+        )->addForeignKey(
+            $setup->getFkName('inchoo_product_faqs', 'product_id', 'catalog_product_entity', 'entity_id'),
+            'product_id',
+            $setup->getTable('catalog_product_entity'),
+            'entity_id',
+            \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
+        )->addForeignKey(
+            $setup->getFkName('inchoo_product_faqs', 'customer_id', 'customer_entity', 'entity_id'),
+                'customer_id',
+            $setup->getTable('customer_entity'),
+                'entity_id',
+                \Magento\Framework\DB\Ddl\Table::ACTION_SET_NULL
         )->setComment(
             'Faqs Table'
         );

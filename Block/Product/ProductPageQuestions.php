@@ -13,7 +13,7 @@ use Magento\Framework\View\Element\Template;
 
 
 /**
- * Product Review Tab
+ * Product Questions Tab
  *
  * @api
  * @author     Magento Core Team <core@magentocommerce.com>
@@ -29,7 +29,7 @@ class ProductPageQuestions extends Template implements IdentityInterface
     protected $_coreRegistry;
 
     /**
-     * Review resource model
+     * FAQ resource model
      *
      * @var \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory
      */
@@ -120,11 +120,18 @@ class ProductPageQuestions extends Template implements IdentityInterface
         return $collection->getSize();
     }
 
+    /**
+     * @param $date
+     * @return string
+     */
     public function dateFormat($date)
     {
         return $this->formatDate($date, \IntlDateFormatter::SHORT);
     }
 
+    /**
+     * @return bool
+     */
     public function getQuestions()
     {
         $productId = $this->getProductId();

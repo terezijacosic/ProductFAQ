@@ -1,8 +1,7 @@
-# Sample 06 - Admin panel
+# Inchoo Product FAQ
 
-* Admin panel with UI components (Advanced)
-* adminhtml/menu.xml
-* adminhtml/acl.xml
-* adminhtml/system.xml
-* Optional: Admin panel without UI components (Simple)
+* Admin -> Content -> FAQ -> FAQ
+* My Account -> My Product Questions
+* Product Page -> Details - FAQ tab
+
 
