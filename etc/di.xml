@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Inchoo\ProductFAQ\Api\Data\FaqsSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Inchoo\ProductFAQ\Api\Data\FaqsInterface" type="Inchoo\ProductFAQ\Model\Faqs" />
+    <preference for="Inchoo\ProductFAQ\Api\FaqsRepositoryInterface" type="Inchoo\ProductFAQ\Model\FaqsRepository" />
+
+</config>

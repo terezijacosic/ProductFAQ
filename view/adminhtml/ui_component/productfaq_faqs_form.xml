@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">productfaq_faqs_form.faqs_form_data_source</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+
+    <settings>
+        <namespace>productfaq_faqs_form</namespace>
+        <dataScope>data</dataScope>
+        <deps>
+            <dep>productfaq_faqs_form.faqs_form_data_source</dep>
+        </deps>
+
+        <buttons>
+            <button name="back">
+                <label>Back</label>
+                <class>back</class>
+                <url path="productfaq/faqs/index"/>
+            </button>
+            <button name="save">
+                <label translate="true">Save FAQ</label>
+                <class>save primary</class>
+                <url path="productfaq/faqs/save"/>
+            </button>
+        </buttons>
+    </settings>
+    
+    <dataSource name="faqs_form_data_source">
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+        <settings>
+            <submitUrl path="productfaq/faqs/save"/>
+        </settings>
+        <dataProvider class="Inchoo\ProductFAQ\Ui\Component\FaqsDataProvider" name="faqs_form_data_source">
+            <settings>
+                <requestFieldName>faq_id</requestFieldName>
+                <primaryFieldName>faq_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    
+    <fieldset name="general">
+        <settings>
+            <label />
+        </settings>
+
+        <hidden name="faq_id" sortOrder="1">
+            <settings>
+                <dataScope>faq_id</dataScope>
+            </settings>
+        </hidden>
+        <hidden name="product_id" sortOrder="1">
+            <settings>
+                <dataScope>product_id</dataScope>
+            </settings>
+        </hidden>
+        <field name="is_visible" sortOrder="10" formElement="checkbox">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <!--<item name="source" xsi:type="string">block</item>-->
+                    <item name="default" xsi:type="number">1</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>boolean</dataType>
+                <label translate="true">Visible on Frontend</label>
+                <dataScope>is_visible</dataScope>
+            </settings>
+            <formElements>
+                <checkbox>
+                    <settings>
+                        <valueMap>
+                            <map name="false" xsi:type="number">0</map>
+                            <map name="true" xsi:type="number">1</map>
+                        </valueMap>
+                        <prefer>toggle</prefer>
+                    </settings>
+                </checkbox>
+            </formElements>
+        </field>
+
+        <input name="question" sortOrder="20">
+            <settings>
+                <label translate="true">Question</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+                <dataScope>question</dataScope>
+            </settings>
+        </input>
+
+        <textarea name="answer" sortOrder="30">
+            <settings>
+                <label translate="true">Answer</label>
+                <dataScope>answer</dataScope>
+            </settings>
+        </textarea>
+    </fieldset>
+</form>

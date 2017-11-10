@@ -1,0 +1,50 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Inchoo\ProductFAQ\Block\Form $block */
+?>
+<div class="block question-add">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Write Your Question')) ?></strong></div>
+<div class="block-content">
+<?php if ($block->getAllowWritequestionFlag()): ?>
+<form action="<?= $block->escapeUrl($block->getAction()) ?>" class="question-form" method="post" id="question-form" data-role="product-question-form" data-bind="scope: 'question-form'">
+    <?= $block->getBlockHtml('formkey') ?>
+    <?= $block->getChildHtml('form_fields_before') ?>
+    <fieldset class="fieldset question-fieldset" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+        <div class="field question-field-text required">
+            <label for="question_field" class="label"><span><?= $block->escapeHtml(__('Question')) ?></span></label>
+            <div class="control">
+                <textarea name="detail" id="question_field" cols="5" rows="3" data-validate="{required:true}" data-bind="value: question().detail"></textarea>
+            </div>
+        </div>
+    </fieldset>
+    <div class="actions-toolbar question-form-actions">
+        <div class="primary actions-primary">
+            <button type="submit" class="action submit primary"><span><?= $block->escapeHtml(__('Submit Question')) ?></span></button>
+        </div>
+    </div>
+</form>
+<script type="text/x-magento-init">
+{
+    "[data-role=product-question-form]": {
+        "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+    },
+    "#question-form": {
+        "Inchoo_ProductFAQ/js/error-placement": {}
+    }
+}
+</script>
+<?php else: ?>
+    <div class="message info notlogged" id="question-form">
+        <div>
+            <?= $block->escapeHtml(__('Only registered users can write questions. Please <a href="%1">Sign in</a> or <a href="%2">create an account</a>', $block->getLoginLink(), $block->getRegisterUrl()), ['a']) ?>
+        </div>
+    </div>
+<?php endif ?>
+</div>
+</div>
