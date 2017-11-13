@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">productfaq_faqs_listing.productfaq_faqs_listing_data_source</item>
@@ -8,13 +9,6 @@
     </argument>
 
     <settings>
-        <!--<buttons>-->
-            <!--<button name="add">-->
-                <!--<url path="*/*/new"/>-->
-                <!--<class>primary</class>-->
-                <!--<label translate="true">Add New</label>-->
-            <!--</button>-->
-        <!--</buttons>-->
         <spinner>productfaq_faqs_columns</spinner>
         <deps>
             <dep>productfaq_faqs_listing.productfaq_faqs_listing_data_source</dep>
@@ -29,7 +23,8 @@
             <updateUrl path="mui/index/render"/>
         </settings>
         <aclResource>Inchoo_ProductFAQ::faqs</aclResource>
-        <dataProvider class="Inchoo\ProductFAQ\Ui\Component\FaqsDataProvider" name="productfaq_faqs_listing_data_source">
+        <dataProvider class="Inchoo\ProductFAQ\Ui\Component\FaqsDataProvider"
+                      name="productfaq_faqs_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>faq_id</primaryFieldName>
@@ -42,21 +37,12 @@
             <sticky>false</sticky>
         </settings>
 
-        <!--
-        <bookmark name="bookmarks"/>
-        <columnsControls name="columns_controls"/>
-        -->
 
         <paging name="listing_paging"/>
 
     </listingToolbar>
 
     <columns name="productfaq_faqs_columns">
-        <!--<selectionsColumn name="ids">-->
-            <!--<settings>-->
-                <!--<indexField>faq_id</indexField>-->
-            <!--</settings>-->
-        <!--</selectionsColumn>-->
         <column name="faq_id">
             <settings>
                 <filter>textRange</filter>
@@ -82,11 +68,6 @@
                 <label translate="true">Visible on Frontend</label>
             </settings>
         </column>
-        <!--<selectionsColumn name="is_visible" >-->
-            <!--<settings>-->
-                <!--<label translate="true">Is Visible on Frontend</label>-->
-            <!--</settings>-->
-        <!--</selectionsColumn>-->
         <column name="answer">
             <settings>
                 <filter>text</filter>
