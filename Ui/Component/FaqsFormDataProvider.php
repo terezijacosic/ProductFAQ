@@ -12,9 +12,10 @@ namespace Inchoo\ProductFAQ\Ui\Component;
 class FaqsFormDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
     /**
-     * @param $name
-     * @param $primaryFieldName
-     * @param $requestFieldName
+     * FaqsFormDataProvider constructor.
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
      * @param \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory $collectionFactory
      * @param array $meta
      * @param array $data
@@ -38,7 +39,6 @@ class FaqsFormDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
     public function getData()
     {
         return $data = $this->getCollection()->toArray();
-
     }
 
 }

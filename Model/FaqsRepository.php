@@ -50,7 +50,6 @@ class FaqsRepository implements FaqsRepositoryInterface
         $this->faqModelFactory = $faqModelFactory;
         $this->faqResource = $faqResource;
         $this->faqCollectionFactory = $faqCollectionFactory;
-
         $this->searchResultsFactory = $searchResultsFactory;
         $this->collectionProcessor = $collectionProcessor;
     }
@@ -101,6 +100,10 @@ class FaqsRepository implements FaqsRepositoryInterface
         return true;
     }
 
+    /**
+     * @param FaqsInterface $faq
+     * @return mixed|void
+     */
     public function updateVisible(FaqsInterface $faq)
     {
         $faq->setIsVisible(1);

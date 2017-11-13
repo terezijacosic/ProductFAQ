@@ -12,6 +12,7 @@ class Faqs extends AbstractModel implements FaqsInterface
      * Cache tag
      */
     const CACHE_TAG = 'faqs_block';
+
     /**
      * Initialize faqs Model
      *
@@ -23,8 +24,6 @@ class Faqs extends AbstractModel implements FaqsInterface
     }
 
     /**
-     * Retrieve block id
-     *
      * @return int
      */
     public function getId()
@@ -33,52 +32,6 @@ class Faqs extends AbstractModel implements FaqsInterface
     }
 
     /**
-     * Retrieve block question
-     *
-     * @return string
-     */
-    public function getQuestion()
-    {
-        return $this->getData(self::QUESTION);
-    }
-    
-    public function getProductId()
-    {
-        return $this->getData(self::PRODUCT_ID);
-    }
-
-    public function getCustomerId()
-    {
-        return $this->getData(self::CUSTOMER_ID);
-    }
-
-    public function getAnswer()
-    {
-        return $this->getData(self::ANSWER);
-    }
-    
-    public function getIsVisible()
-    {
-        return $this->getData(self::IS_VISIBLE);
-    }
-
-    public function getCreatedAt()
-    {
-        return $this->getData(self::CREATED_AT);
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->getData(self::UPDATED_AT);
-    }
-
-   
-    
-    /*******************************************/
-
-    /**
-     * Set ID
-     *
      * @param int $id
      * @return FaqsInterface
      */
@@ -88,8 +41,14 @@ class Faqs extends AbstractModel implements FaqsInterface
     }
 
     /**
-     * Set question
-     *
+     * @return string
+     */
+    public function getQuestion()
+    {
+        return $this->getData(self::QUESTION);
+    }
+
+    /**
      * @param string $question
      * @return FaqsInterface
      */
@@ -98,36 +57,105 @@ class Faqs extends AbstractModel implements FaqsInterface
         return $this->setData(self::QUESTION, $question);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getProductId()
+    {
+        return $this->getData(self::PRODUCT_ID);
+    }
+
+    /**
+     * @param $productId
+     * @return $this
+     */
     public function setProductId($productId)
     {
         return $this->setData(self::PRODUCT_ID, $productId);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCustomerId()
+    {
+        return $this->getData(self::CUSTOMER_ID);
+    }
+
+    /**
+     * @param $customerId
+     * @return $this
+     */
     public function setCustomerId($customerId)
     {
         return $this->setData(self::CUSTOMER_ID, $customerId);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAnswer()
+    {
+        return $this->getData(self::ANSWER);
+    }
+
+    /**
+     * @param $answer
+     * @return $this
+     */
     public function setAnswer($answer)
     {
         return $this->setData(self::ANSWER, $answer);
     }
 
-    public function setIsVisible($visible)
+    /**
+     * @return mixed
+     */
+    public function getIsVisible()
     {
-        return $this->setData(self::IS_VISIBLE , $visible);
+        return $this->getData(self::IS_VISIBLE);
     }
 
+    /**
+     * @param $visible
+     * @return $this
+     */
+    public function setIsVisible($visible)
+    {
+        return $this->setData(self::IS_VISIBLE, $visible);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedAt()
+    {
+        return $this->getData(self::CREATED_AT);
+    }
+
+    /**
+     * @param $timestampCreated
+     * @return $this
+     */
     public function setCreatedAt($timestampCreated)
     {
         return $this->setData(self::CREATED_AT, $timestampCreated);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getUpdatedAt()
+    {
+        return $this->getData(self::UPDATED_AT);
+    }
+
+    /**
+     * @param $timestampUpdated
+     * @return $this
+     */
     public function setUpdatedAt($timestampUpdated)
     {
         return $this->setData(self::UPDATED_AT, $timestampUpdated);
     }
-
-
-
 }

@@ -17,8 +17,16 @@ use Magento\Framework\Controller\ResultFactory;
 
 class Index extends \Magento\Framework\App\Action\Action
 {
+    /**
+     * @var CurrentCustomer
+     */
     protected $_currentCustomer;
 
+    /**
+     * Index constructor.
+     * @param Context $context
+     * @param CurrentCustomer $currentCustomer
+     */
     public function __construct(
         Context $context,
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
@@ -28,6 +36,9 @@ class Index extends \Magento\Framework\App\Action\Action
         $this->_currentCustomer = $currentCustomer;
     }
 
+    /**
+     * @return \Magento\Framework\Controller\ResultInterface
+     */
     public function execute()
     {
         $customerId = $this->_currentCustomer->getCustomerId();
@@ -37,13 +48,16 @@ class Index extends \Magento\Framework\App\Action\Action
         }
 
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
+
         if ($navigationBlock = $resultPage->getLayout()->getBlock('customer_account_navigation')) {
             $navigationBlock->setActive('productfaq/index');
         }
         if ($block = $resultPage->getLayout()->getBlock('customer_product_questions')) {
             $block->setRefererUrl($this->_redirect->getRefererUrl());
         }
+
         $resultPage->getConfig()->getTitle()->set(__('My Product Questions'));
+
         return $resultPage;
     }
 }

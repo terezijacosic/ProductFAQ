@@ -10,16 +10,37 @@ namespace Inchoo\ProductFAQ\Controller\Adminhtml\Faqs;
 
 use Inchoo\ProductFAQ\Api\FaqsRepositoryInterface;
 use Magento\Backend\App\Action;
-use Magento\Framework\Controller\ResultFactory;
 
 class Save extends \Magento\Backend\App\Action
 {
-
+    /**
+     * @var \Inchoo\ProductFAQ\Model\FaqsFactory
+     */
     protected $faqsFactory;
+
+    /**
+     * @var \Inchoo\ProductFAQ\Model\ResourceModel\Faqs
+     */
     protected $faqsResource;
+
+    /**
+     * @var FaqsRepositoryInterface
+     */
     protected $faqsRepository;
+
+    /**
+     * @var \Magento\Framework\App\Request\Http
+     */
     protected $request;
 
+    /**
+     * Save constructor.
+     * @param Action\Context $context
+     * @param \Inchoo\ProductFAQ\Model\FaqsFactory $faqsFactory
+     * @param \Inchoo\ProductFAQ\Model\ResourceModel\Faqs $faqsResource
+     * @param FaqsRepositoryInterface $faqsRepository
+     * @param \Magento\Framework\App\Request\Http $request
+     */
     public function __construct(
         Action\Context $context,
         \Inchoo\ProductFAQ\Model\FaqsFactory $faqsFactory,
@@ -36,6 +57,9 @@ class Save extends \Magento\Backend\App\Action
         $this->request = $request;
     }
 
+    /**
+     * @return \Magento\Framework\Controller\Result\Redirect
+     */
     public function execute()
     {
         $id = $this->request->getParam('faq_id');
@@ -43,7 +67,6 @@ class Save extends \Magento\Backend\App\Action
         $answer = $this->request->getParam('answer');
         $productId = $this->request->getParam('product_id');
         $visible = $this->request->getParam('is_visible');
-//        var_dump($visible);
 
         $faqs = $this->faqsFactory->create();
         $faqs->setId($id);
@@ -51,16 +74,11 @@ class Save extends \Magento\Backend\App\Action
         $faqs->setAnswer($answer);
         $faqs->setProductId($productId);
         $faqs->setIsVisible($visible);
-
-//        $this->faqsRepository->save($faqs);
-
         $this->faqsResource->save($faqs);
-
-//        var_dump('SAVED CHANGES :P');
-//        $resultPage = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
 
         $resultRedirect = $this->resultRedirectFactory->create();
         $resultRedirect->setPath('productfaq/faqs/index');
+
         return $resultRedirect;
     }
 }

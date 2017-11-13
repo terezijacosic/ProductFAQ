@@ -9,7 +9,6 @@
 namespace Inchoo\ProductFAQ\Controller\Product;
 
 use Magento\Framework\App\Action\Context;
-use \Magento\Framework\Controller\ResultFactory;
 
 class Post extends \Magento\Framework\App\Action\Action
 {
@@ -23,34 +22,51 @@ class Post extends \Magento\Framework\App\Action\Action
      */
     protected $faqsModelFactory;
 
-    protected $request;
     /**
-     * Crud constructor.
-     *
+     * @var \Magento\Framework\App\Request\Http
+     */
+    protected $request;
+
+    /**
+     * @var \Magento\Customer\Helper\Session\CurrentCustomer
+     */
+    protected $currentCustomer;
+
+    /**
+     * Post constructor.
      * @param Context $context
      * @param \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface $faqsRepository
      * @param \Inchoo\ProductFAQ\Api\Data\FaqsInterfaceFactory $faqsModelFactory
+     * @param \Magento\Framework\App\Request\Http $request
+     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
      */
     public function __construct(
         Context $context,
         \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface $faqsRepository,
         \Inchoo\ProductFAQ\Api\Data\FaqsInterfaceFactory $faqsModelFactory,
-        \Magento\Framework\App\Request\Http $request
-    ) {
+        \Magento\Framework\App\Request\Http $request,
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
+    )
+    {
         parent::__construct($context);
         $this->faqsRepository = $faqsRepository;
         $this->faqsModelFactory = $faqsModelFactory;
         $this->request = $request;
+        $this->currentCustomer = $currentCustomer;
     }
 
     /**
-     * Controller action.
+     * Controller action
      */
     public function execute()
     {
         $question = $this->request->getParam('question');
         $productId = $this->request->getParam('product_id');
-        $customerId = $this->request->getParam('customer_id');
+        $customerId = $this->currentCustomer->getCustomerId();
+
+        if (!$customerId) {
+            $this->_redirect('catalog/product/view/id/' . $productId);
+        }
 
         try {
             $faqs = $this->faqsModelFactory->create();
@@ -59,14 +75,11 @@ class Post extends \Magento\Framework\App\Action\Action
             $faqs->setCustomerId($customerId);
 
             $this->faqsRepository->save($faqs);
-//            var_dump($faqs->debug()); poruka success!
             $this->messageManager->addSuccessMessage(__('You submitted your question for moderation.'));
         } catch (CouldNotSaveException $e) {
             $this->messageManager->addErrorMessage(__('Something went wrong. :('));
-//            var_dump($e);
         }
 
         $this->_redirect('catalog/product/view/id/' . $productId);
     }
-
 }

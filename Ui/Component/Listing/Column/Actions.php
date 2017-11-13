@@ -4,9 +4,6 @@ namespace Inchoo\ProductFAQ\Ui\Component\Listing\Column;
 
 use Magento\Ui\Component\Listing\Columns\Column;
 
-/**
- * Class EditActions
- */
 class Actions extends Column
 {
     /**

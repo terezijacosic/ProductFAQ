@@ -13,8 +13,19 @@ use Magento\Backend\App\Action;
 
 class Delete extends \Magento\Backend\App\Action
 {
+    /**
+     * @var FaqsRepositoryInterface
+     */
     protected $faqsRepository;
+
+    /**
+     * @var \Inchoo\ProductFAQ\Model\FaqsFactory
+     */
     protected $faqsFactory;
+
+    /**
+     * @var \Magento\Framework\App\Request\Http
+     */
     protected $request;
 
     public function __construct(
@@ -31,6 +42,9 @@ class Delete extends \Magento\Backend\App\Action
         $this->request = $request;
     }
 
+    /**
+     * @return \Magento\Framework\Controller\Result\Redirect
+     */
     public function execute()
     {
         $id = $this->request->getParam('faq_id');
@@ -40,11 +54,12 @@ class Delete extends \Magento\Backend\App\Action
             $this->faqsRepository->delete($faq);
 
         } catch (NoSuchEntityException $e) {
-            var_dump($e); //handle error
+            $this->messageManager->addErrorMessage(__('Something went wrong. :('));
         }
 
         $resultRedirect = $this->resultRedirectFactory->create();
         $resultRedirect->setPath('productfaq/faqs/index');
+
         return $resultRedirect;
     }
 }

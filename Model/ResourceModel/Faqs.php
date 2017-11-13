@@ -2,7 +2,6 @@
 
 namespace Inchoo\ProductFAQ\Model\ResourceModel;
 
-use Magento\Cms\Model\ResourceModel\AbstractCollection;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 
 class Faqs extends AbstractDb

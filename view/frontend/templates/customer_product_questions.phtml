@@ -2,65 +2,47 @@
 
 /** @var \Inchoo\ProductFAQ\Block\QuestionsBlock $block */
 
-if (!$block->getQuestions())
-{
-//    echo $block->escapeHtml(__('You have no submmited questions.'));
-?>
+if (!$block->getQuestions()): ?>
     <div class="block review-list" id="customer-reviews">
         <div class="block-title">
             <strong><?= $block->escapeHtml(__('You have no submmited questions.')) ?></strong>
         </div>
     </div>
-<?php
-}
-else {
-    $_items = $block->getQuestions()->getItems();
-    $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
-
-    if (count($_items) > 0):?>
-        <div class="block review-list" id="customer-reviews">
-            <div class="block-title">
-                <strong><?= $block->escapeHtml(__('Customer Questions')) ?></strong>
+<?php else: ?>
+    <?php $_items = $block->getQuestions()->getItems(); ?>
+    <?php $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT; ?>
+    <div class="block review-list" id="customer-reviews">
+        <div class="block-title">
+            <strong><?= $block->escapeHtml(__('Customer Questions')) ?></strong>
+        </div>
+        <div class="block-content">
+            <div class="toolbar review-toolbar">
+                <?= $block->getChildHtml('toolbar') ?>
             </div>
-            <div class="block-content">
-                <div class="toolbar review-toolbar">
-                    <?= $block->getChildHtml('toolbar') ?>
-                </div>
-                <ol class="items review-items">
-                    <?php foreach ($_items as $_question):?>
-                        <li class="item review-item" itemscope itemprop="review" itemtype="http://schema.org/Review">
-                            <div class="review-title" itemprop="name"><?= $block->escapeHtml($_question->getQuestion()) ?></div>
-                            <div class="review-content" itemprop="description">
-                                <?= nl2br($block->escapeHtml($_question->getAnswer())) ?>
-                            </div>
-                            <div class="review-details">
-                                <p class="review-date">
-                                    <span class="review-details-label"><?= $block->escapeHtml(__('Posted on')) ?></span>
-                                    <time class="review-details-value" itemprop="datePublished" datetime="<?= $block->escapeHtmlAttr($block->formatDate($_question->getCreatedAt(), $format)) ?>"><?= $block->escapeHtml($block->formatDate($_question->getCreatedAt(), $format)) ?></time>
-                                </p>
-                                <p class="review-details-value">
-                                    <a href="<?= $block->escapeUrl($block->getProductUrl($_question)) ?>"><?= $block->escapeUrl($block->getProductUrl($_question)) ?></a>
-                                </p>
-                            </div>
-                        </li>
-                    <?php endforeach; ?>
-                </ol>
-                <div class="toolbar review-toolbar">
-                    <?= $block->getChildHtml('toolbar') ?>
-                </div>
+            <ol class="items review-items">
+                <?php foreach ($_items as $_question): ?>
+                    <li class="item review-item" itemscope itemprop="review" itemtype="http://schema.org/Review">
+                        <div class="review-title"
+                             itemprop="name"><?= $block->escapeHtml($_question->getQuestion()) ?></div>
+                        <div class="review-content" itemprop="description">
+                            <?= nl2br($block->escapeHtml($_question->getAnswer())) ?>
+                        </div>
+                        <div class="review-details">
+                            <p class="review-date">
+                                <span class="review-details-label"><?= $block->escapeHtml(__('Posted on')) ?></span>
+                                <time class="review-details-value" itemprop="datePublished"
+                                      datetime="<?= $block->escapeHtmlAttr($block->formatDate($_question->getCreatedAt(), $format)) ?>"><?= $block->escapeHtml($block->formatDate($_question->getCreatedAt(), $format)) ?></time>
+                            </p>
+                            <p class="review-details-value">
+                                <a href="<?= $block->escapeUrl($block->getProductUrl($_question)) ?>"><?= $block->escapeUrl($block->getProductUrl($_question)) ?></a>
+                            </p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+            <div class="toolbar review-toolbar">
+                <?= $block->getChildHtml('toolbar') ?>
             </div>
         </div>
-    <?php endif;
-    if (count($_items) === 0)
-    {
-//        echo $block->escapeHtml(__('You have no submmited questions.'));
-        ?>
-        <div class="block review-list" id="customer-reviews">
-            <div class="block-title">
-                <strong><?= $block->escapeHtml(__('You have no submmited questions.')) ?></strong>
-            </div>
-        </div>
-        <?php
-    }
-}
-?>
+    </div>
+<?php endif;

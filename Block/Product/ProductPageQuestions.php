@@ -14,10 +14,6 @@ use Magento\Framework\View\Element\Template;
 
 /**
  * Product Questions Tab
- *
- * @api
- * @author     Magento Core Team <core@magentocommerce.com>
- * @since 100.0.2
  */
 class ProductPageQuestions extends Template implements IdentityInterface
 {
@@ -35,12 +31,19 @@ class ProductPageQuestions extends Template implements IdentityInterface
      */
     protected $_collection;
 
+    /**
+     * Currently logged customer
+     *
+     * @var \Magento\Customer\Helper\Session\CurrentCustomer
+     */
     protected $_currentCustomer;
 
     /**
-     * @param \Magento\Framework\View\Element\Template\Context $context
+     * ProductPageQuestions constructor.
+     * @param Template\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory $collectionFactory
+     * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
      * @param array $data
      */
     public function __construct(
@@ -49,13 +52,13 @@ class ProductPageQuestions extends Template implements IdentityInterface
         \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory $collectionFactory,
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         array $data = []
-    ) {
+    )
+    {
         $this->_coreRegistry = $registry;
         $this->_collection = $collectionFactory;
         $this->_currentCustomer = $currentCustomer;
         parent::__construct($context, $data);
 
-        $this->setTabTitle();
     }
 
     /**
@@ -69,6 +72,11 @@ class ProductPageQuestions extends Template implements IdentityInterface
         return $product ? $product->getId() : null;
     }
 
+    /**
+     * Check if customer is logged in
+     *
+     * @return bool|int|null
+     */
     public function getCustomerId()
     {
         $customerId = $this->_currentCustomer->getCustomerId();
@@ -78,7 +86,11 @@ class ProductPageQuestions extends Template implements IdentityInterface
         return $customerId;
     }
 
-
+    /**
+     * Send new FAQ data to controller
+     *
+     * @return string
+     */
     public function getAction()
     {
         return $this->getUrl(
@@ -86,41 +98,13 @@ class ProductPageQuestions extends Template implements IdentityInterface
             [
                 '_secure' => $this->getRequest()->isSecure(),
                 'product_id' => $this->getProductId(),
-                'customer_id' => $this->getCustomerId()
             ]
         );
     }
 
-
     /**
-     * Set tab title
+     * Get only date from timestamp
      *
-     * @return void
-     */
-    public function setTabTitle()
-    {
-        $title = $this->getCollectionSize()
-            ? __('FAQ %1', '<span class="counter">' . $this->getCollectionSize() . '</span>')
-            : __('FAQ');
-        $this->setTitle($title);
-    }
-
-    /**
-     * Get size of reviews collection
-     *
-     * @return int
-     */
-    public function getCollectionSize()
-    {
-        $collection = $this->_collection->create()
-        ->addProductFilter(
-            $this->getProductId()
-        );
-
-        return $collection->getSize();
-    }
-
-    /**
      * @param $date
      * @return string
      */
@@ -130,7 +114,9 @@ class ProductPageQuestions extends Template implements IdentityInterface
     }
 
     /**
-     * @return bool
+     * Retrieve questions list for current product page
+     *
+     * @return bool|\Inchoo\ProductFAQ\Model\ResourceModel\Faqs\Collection
      */
     public function getQuestions()
     {
@@ -138,10 +124,10 @@ class ProductPageQuestions extends Template implements IdentityInterface
         if (!$productId) {
             return false;
         }
-        $result =  $this->_collection->create();
+        $result = $this->_collection->create();
         $result->addProductFilter($productId)
-                ->addVisibleFilter()
-                ->setDateOrder();
+            ->addVisibleFilter()
+            ->setDateOrder();
 
         return $result;
     }

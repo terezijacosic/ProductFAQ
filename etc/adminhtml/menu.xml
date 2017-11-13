@@ -1,8 +1,12 @@
 <?xml version="1.0"?>
 
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Inchoo_ProductFAQ::faqs_content" title="FAQ" translate="title" module="Inchoo_ProductFAQ" parent="Magento_Backend::content" sortOrder="50" dependsOnModule="Inchoo_ProductFAQ" resource="Inchoo_ProductFAQ::faqs"/>
-        <add id="Inchoo_ProductFAQ::faqs" title="FAQ" translate="title" module="Inchoo_ProductFAQ" sortOrder="100" parent="Inchoo_ProductFAQ::faqs_content" action="productfaq/faqs" resource="Inchoo_ProductFAQ::faqs"/>
+        <add id="Inchoo_ProductFAQ::faqs_content" title="FAQ" translate="title" module="Inchoo_ProductFAQ"
+             parent="Magento_Backend::content" sortOrder="50" dependsOnModule="Inchoo_ProductFAQ"
+             resource="Inchoo_ProductFAQ::faqs"/>
+        <add id="Inchoo_ProductFAQ::faqs" title="FAQ" translate="title" module="Inchoo_ProductFAQ" sortOrder="100"
+             parent="Inchoo_ProductFAQ::faqs_content" action="productfaq/faqs" resource="Inchoo_ProductFAQ::faqs"/>
     </menu>
 </config>

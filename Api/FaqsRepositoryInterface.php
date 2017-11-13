@@ -33,6 +33,12 @@ interface FaqsRepositoryInterface
      */
     public function delete(Data\FaqsInterface $faqs);
 
+    /**
+     * Update visibility on frontend.
+     *
+     * @param Data\FaqsInterface $faqs
+     * @return mixed
+     */
     public function updateVisible(Data\FaqsInterface $faqs);
 
     /**

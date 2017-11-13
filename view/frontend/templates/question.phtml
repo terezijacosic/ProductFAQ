@@ -5,28 +5,30 @@
  */
 
 /** @var \Inchoo\ProductFAQ\Block\Product\ProductPageQuestions $block */
-    echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('questions')->toHtml();
+echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('questions')->toHtml();
 
 $_items = $block->getQuestions()->getItems();
 $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
 ?>
-<?php if (count($_items)):?>
+<?php if (count($_items)): ?>
     <div class="block review-list" id="customer-reviews">
         <div class="block-title">
             <strong><?= $block->escapeHtml(__('Customer Questions')) ?></strong>
         </div>
         <div class="block-content">
             <ol class="items review-items">
-                <?php foreach ($_items as $_question):?>
+                <?php foreach ($_items as $_question): ?>
                     <li class="item review-item" itemscope itemprop="review" itemtype="http://schema.org/Review">
-                        <div class="review-title" itemprop="name"><?= $block->escapeHtml($_question->getQuestion()) ?></div>
+                        <div class="review-title"
+                             itemprop="name"><?= $block->escapeHtml($_question->getQuestion()) ?></div>
                         <div class="review-content" itemprop="description">
                             <?= nl2br($block->escapeHtml($_question->getAnswer())) ?>
                         </div>
                         <div class="review-details">
                             <p class="review-date">
                                 <span class="review-details-label"><?= $block->escapeHtml(__('Posted on')) ?></span>
-                                <time class="review-details-value" itemprop="datePublished" datetime="<?= $block->escapeHtmlAttr($block->formatDate($_question->getCreatedAt(), $format)) ?>"><?= $block->escapeHtml($block->formatDate($_question->getCreatedAt(), $format)) ?></time>
+                                <time class="review-details-value" itemprop="datePublished"
+                                      datetime="<?= $block->escapeHtmlAttr($block->formatDate($_question->getCreatedAt(), $format)) ?>"><?= $block->escapeHtml($block->formatDate($_question->getCreatedAt(), $format)) ?></time>
                             </p>
                         </div>
                     </li>
@@ -34,28 +36,33 @@ $format = $block->getDateFormat() ?: \IntlDateFormatter::SHORT;
             </ol>
         </div>
     </div>
-<?php endif;?>
-<?php if ($block->getCustomerId()):?>
-<div class="block question-add">
-    <div class="block-title"><strong><?= $block->escapeHtml(__('Write Your Question')) ?></strong></div>
-    <div class="block-content">
-        <form action="<?= $block->escapeUrl($block->getAction()) ?>" class="question-form" method="post" id="question-form" data-role="product-question-form" data-bind="scope: 'question-form'" data-mage-init='{"validation":{}}'>
-            <?= $block->getBlockHtml('formkey') ?>
-            <?= $block->getChildHtml('form_fields_before') ?>
-            <fieldset class="fieldset question-fieldset" data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
-                <div class="field question-field-text required">
-                    <label for="question_field" class="label"><span><?= $block->escapeHtml(__('Question')) ?></span></label>
-                    <div class="control">
-                        <textarea name="question" id="question_field" cols="5" rows="3" data-validate="{required:true}" data-bind="value: question().detail"></textarea>
+<?php endif; ?>
+<?php if ($block->getCustomerId()): ?>
+    <div class="block question-add">
+        <div class="block-title"><strong><?= $block->escapeHtml(__('Write Your Question')) ?></strong></div>
+        <div class="block-content">
+            <form action="<?= $block->escapeUrl($block->getAction()) ?>" class="question-form" method="post"
+                  id="question-form" data-role="product-question-form" data-bind="scope: 'question-form'"
+                  data-mage-init='{"validation":{}}'>
+                <?= $block->getBlockHtml('formkey') ?>
+                <?= $block->getChildHtml('form_fields_before') ?>
+                <fieldset class="fieldset question-fieldset"
+                          data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>">
+                    <div class="field question-field-text required">
+                        <label for="question_field" class="label"><span><?= $block->escapeHtml(__('Question')) ?></span></label>
+                        <div class="control">
+                            <textarea name="question" id="question_field" cols="5" rows="3"
+                                      data-validate="{required:true}" data-bind="value: question().detail"></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="actions-toolbar question-form-actions">
+                    <div class="primary actions-primary">
+                        <button type="submit" class="action submit primary">
+                            <span><?= $block->escapeHtml(__('Submit Question')) ?></span></button>
                     </div>
                 </div>
-            </fieldset>
-            <div class="actions-toolbar question-form-actions">
-                <div class="primary actions-primary">
-                    <button type="submit" class="action submit primary"><span><?= $block->escapeHtml(__('Submit Question')) ?></span></button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
-<?php endif;?>
+<?php endif; ?>

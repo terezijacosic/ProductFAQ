@@ -31,17 +31,31 @@ class QuestionsBlock extends \Magento\Customer\Block\Account\Dashboard
      */
     protected $currentCustomer;
 
+    /**
+     * @var \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface
+     */
     protected $faqsRepository;
-//    protected $faqsModelFactory;
+
+    /**
+     * @var FilterBuilder
+     */
     protected $filterBuilder;
+
+    /**
+     * @var SearchCriteriaBuilder
+     */
     protected $searchCriteriaBuilder;
+
+    /**
+     * @var SortOrderBuilder
+     */
     protected $sortOrderBuilder;
 
     /**
-     * @param \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface $faqsRepository,
-     * @param \Magento\Framework\Api\FilterBuilder $filterBuilder,
-     * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder,
-     * @param \Magento\Framework\Api\SortOrderBuilder $sortOrderBuilder,
+     * @param \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface $faqsRepository ,
+     * @param \Magento\Framework\Api\FilterBuilder $filterBuilder ,
+     * @param \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder ,
+     * @param \Magento\Framework\Api\SortOrderBuilder $sortOrderBuilder ,
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Customer\Model\Session $customerSession
      * @param \Magento\Newsletter\Model\SubscriberFactory $subscriberFactory
@@ -64,7 +78,8 @@ class QuestionsBlock extends \Magento\Customer\Block\Account\Dashboard
         \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory $collectionFactory,
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
         array $data = []
-    ) {
+    )
+    {
         $this->_collectionFactory = $collectionFactory;
         $this->faqsRepository = $faqsRepository;
         $this->filterBuilder = $filterBuilder;
@@ -98,7 +113,6 @@ class QuestionsBlock extends \Magento\Customer\Block\Account\Dashboard
      */
     protected function _prepareLayout()
     {
-//        var_dump($this->debug($this->getQuestions()));
         if ($this->getQuestions()) {
             $toolbar = $this->getLayout()->createBlock(
                 \Magento\Theme\Block\Html\Pager::class,
@@ -111,8 +125,9 @@ class QuestionsBlock extends \Magento\Customer\Block\Account\Dashboard
     }
 
     /**
-     * Get questions
+     * Get questions collection
      *
+     * @return bool|\Inchoo\ProductFAQ\Model\ResourceModel\Faqs\Collection
      */
     public function getQuestions()
     {
@@ -126,43 +141,8 @@ class QuestionsBlock extends \Magento\Customer\Block\Account\Dashboard
                 ->addCustomerFilter($customerId)
                 ->setDateOrder();
         }
-        return $this->_collection;
-    }
-
-
-
-    /**
-     * Get question link
-     *
-     * @return string
-     * @deprecated 100.2.0
-     */
-    public function getQuestionLink()
-    {
-        return $this->getUrl('question/customer/view/');
-    }
-
-    /**
-     * Get question URL
-     *
-     * @param \Inchoo\ProductFAQ\Model\Faqs $question
-     * @return string
-     * @since 100.2.0
-     */
-    public function getQuestionUrl($question)
-    {
-        return $this->getUrl('question/customer/view', ['id' => $question->getId()]);
-    }
-
-    /**
-     * Get product link
-     *
-     * @return string
-     * @deprecated 100.2.0
-     */
-    public function getProductLink()
-    {
-        return $this->getUrl('catalog/product/view/');
+        $array = $this->_collection->getItems();
+        return  count($array) > 0 ? $this->_collection : false;
     }
 
     /**
@@ -170,7 +150,6 @@ class QuestionsBlock extends \Magento\Customer\Block\Account\Dashboard
      *
      * @param \Inchoo\ProductFAQ\Model\Faqs $question
      * @return string
-     * @since 100.2.0
      */
     public function getProductUrl($question)
     {
@@ -188,13 +167,4 @@ class QuestionsBlock extends \Magento\Customer\Block\Account\Dashboard
         return $this->formatDate($date, \IntlDateFormatter::SHORT);
     }
 
-    /**
-     * Add question summary
-     *
-     * @return \Magento\Framework\View\Element\AbstractBlock
-     */
-    protected function _beforeToHtml()
-    {
-        return parent::_beforeToHtml();
-    }
 }

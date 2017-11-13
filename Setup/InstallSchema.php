@@ -27,7 +27,7 @@ class InstallSchema implements InstallSchemaInterface
             'question',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             255,
-            ['nullable' => false ],
+            ['nullable' => false],
             'Faqs Question'
         )->addColumn(
             'product_id',
@@ -73,10 +73,10 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::ACTION_CASCADE
         )->addForeignKey(
             $setup->getFkName('inchoo_product_faqs', 'customer_id', 'customer_entity', 'entity_id'),
-                'customer_id',
+            'customer_id',
             $setup->getTable('customer_entity'),
-                'entity_id',
-                \Magento\Framework\DB\Ddl\Table::ACTION_SET_NULL
+            'entity_id',
+            \Magento\Framework\DB\Ddl\Table::ACTION_SET_NULL
         )->setComment(
             'Faqs Table'
         );

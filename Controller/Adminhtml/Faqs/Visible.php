@@ -12,11 +12,34 @@ use Magento\Backend\App\Action;
 
 class Visible extends \Magento\Backend\App\Action
 {
+    /**
+     * @var \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface
+     */
     protected $faqsRepository;
+
+    /**
+     * @var \Inchoo\ProductFAQ\Model\ResourceModel\Faqs
+     */
     protected $faqsResource;
+
+    /**
+     * @var \Inchoo\ProductFAQ\Model\FaqsFactory
+     */
     protected $faqsFactory;
+
+    /**
+     * @var \Magento\Framework\App\Request\Http
+     */
     protected $request;
 
+    /**
+     * Visible constructor.
+     * @param Action\Context $context
+     * @param \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface $faqsRepository
+     * @param \Inchoo\ProductFAQ\Model\ResourceModel\Faqs $faqsResource
+     * @param \Inchoo\ProductFAQ\Model\FaqsFactory $faqsFactory
+     * @param \Magento\Framework\App\Request\Http $request
+     */
     public function __construct(
         Action\Context $context,
         \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface $faqsRepository,
@@ -33,18 +56,19 @@ class Visible extends \Magento\Backend\App\Action
         $this->request = $request;
     }
 
+    /**
+     * @return \Magento\Framework\Controller\Result\Redirect
+     */
     public function execute()
     {
         $id = $this->request->getParam('faq_id');
 
         $faqs = $this->faqsRepository->getById($id);
         $this->faqsRepository->updateVisible($faqs);
-//        $faqs = $this->faqsFactory->create();
-//        $this->faqsResource->load($faqs, $id);
-//        $faqs->setIsVisible(1);
 
         $resultRedirect = $this->resultRedirectFactory->create();
         $resultRedirect->setPath('productfaq/faqs/index');
+
         return $resultRedirect;
     }
 }

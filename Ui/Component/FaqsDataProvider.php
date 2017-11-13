@@ -5,9 +5,10 @@ namespace Inchoo\ProductFAQ\Ui\Component;
 class FaqsDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 {
     /**
-     * @param $name
-     * @param $primaryFieldName
-     * @param $requestFieldName
+     * FaqsDataProvider constructor.
+     * @param string $name
+     * @param string $primaryFieldName
+     * @param string $requestFieldName
      * @param \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory $collectionFactory
      * @param array $meta
      * @param array $data
@@ -19,7 +20,8 @@ class FaqsDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
         \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory $collectionFactory,
         array $meta = [],
         array $data = []
-    ) {
+    )
+    {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
 
         $this->collection = $collectionFactory->create();
@@ -30,11 +32,7 @@ class FaqsDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
      */
     public function getData()
     {
-        /**
-         * This is just a hack-around to use one DataProvider for both grid and form,
-         * it's probably really bad idea
-         */
-        if($this->getName() == 'faqs_form_data_source') {
+        if ($this->getName() == 'faqs_form_data_source') {
 
             $dataObject = $this->getCollection()->getFirstItem();
 
@@ -48,6 +46,5 @@ class FaqsDataProvider extends \Magento\Ui\DataProvider\AbstractDataProvider
 
         return $data;
     }
-
 
 }
