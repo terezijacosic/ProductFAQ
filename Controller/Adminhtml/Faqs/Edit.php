@@ -6,6 +6,7 @@ use Magento\Framework\Controller\ResultFactory;
 
 class Edit extends \Magento\Cms\Controller\Adminhtml\Block
 {
+
     /**
      * Edit Faqs action.
      *

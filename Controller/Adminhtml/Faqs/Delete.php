@@ -43,6 +43,16 @@ class Delete extends \Magento\Backend\App\Action
     }
 
     /**
+     * Check the permission to run it
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed('Inchoo_ProductFAQ::faqs');
+    }
+
+    /**
      * @return \Magento\Framework\Controller\Result\Redirect
      */
     public function execute()

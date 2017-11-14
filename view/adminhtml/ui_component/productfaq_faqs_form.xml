@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-    
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
             <item name="provider" xsi:type="string">productfaq_faqs_form.faqs_form_data_source</item>
@@ -29,7 +30,7 @@
             </button>
         </buttons>
     </settings>
-    
+
     <dataSource name="faqs_form_data_source">
         <argument name="data" xsi:type="array">
             <item name="js_config" xsi:type="array">
@@ -46,10 +47,10 @@
             </settings>
         </dataProvider>
     </dataSource>
-    
+
     <fieldset name="general">
         <settings>
-            <label />
+            <label/>
         </settings>
 
         <hidden name="faq_id" sortOrder="1">

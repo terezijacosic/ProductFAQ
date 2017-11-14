@@ -9,6 +9,7 @@
 namespace Inchoo\ProductFAQ\Controller\Product;
 
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\RequestInterface;
 
 class Post extends \Magento\Framework\App\Action\Action
 {
@@ -33,6 +34,11 @@ class Post extends \Magento\Framework\App\Action\Action
     protected $currentCustomer;
 
     /**
+     * @var \Magento\Customer\Model\Session
+     */
+    protected $customerSession;
+
+    /**
      * Post constructor.
      * @param Context $context
      * @param \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface $faqsRepository
@@ -45,7 +51,8 @@ class Post extends \Magento\Framework\App\Action\Action
         \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface $faqsRepository,
         \Inchoo\ProductFAQ\Api\Data\FaqsInterfaceFactory $faqsModelFactory,
         \Magento\Framework\App\Request\Http $request,
-        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
+        \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
+        \Magento\Customer\Model\Session $customerSession
     )
     {
         parent::__construct($context);
@@ -53,6 +60,21 @@ class Post extends \Magento\Framework\App\Action\Action
         $this->faqsModelFactory = $faqsModelFactory;
         $this->request = $request;
         $this->currentCustomer = $currentCustomer;
+        $this->customerSession = $customerSession;
+    }
+
+    /**
+     * Check customer authentication
+     *
+     * @param RequestInterface $request
+     * @return \Magento\Framework\App\ResponseInterface
+     */
+    public function dispatch(RequestInterface $request)
+    {
+        if (!$this->customerSession->authenticate()) {
+            $this->_actionFlag->set('', self::FLAG_NO_DISPATCH, true);
+        }
+        return parent::dispatch($request);
     }
 
     /**
