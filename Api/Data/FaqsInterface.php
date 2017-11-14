@@ -7,14 +7,15 @@ interface FaqsInterface
     /**#@+
      * Constants for keys of data array. Identical to the name of the getter in snake case
      */
-    const FAQ_ID        = 'faq_id';
-    const QUESTION      = 'question';
-    const PRODUCT_ID    = 'product_id';
-    const CUSTOMER_ID   = 'customer_id';
-    const ANSWER        = 'answer';
-    const IS_VISIBLE    = 'is_visible';
-    const CREATED_AT    = 'created_at';
-    const UPDATED_AT    = 'updated_at';
+    const FAQ_ID = 'faq_id';
+    const QUESTION = 'question';
+    const PRODUCT_ID = 'product_id';
+    const CUSTOMER_ID = 'customer_id';
+    const ANSWER = 'answer';
+    const IS_VISIBLE = 'is_visible';
+    const STORE_ID = 'store_id';
+    const CREATED_AT = 'created_at';
+    const UPDATED_AT = 'updated_at';
     /**#@-*/
 
     /**
@@ -82,6 +83,17 @@ interface FaqsInterface
      * @return mixed
      */
     public function setIsVisible($visible);
+
+    /**
+     * @return mixed
+     */
+    public function getStoreId();
+
+    /**
+     * @param $storeId
+     * @return mixed
+     */
+    public function setStoreId($storeId);
 
     /**
      * @return mixed

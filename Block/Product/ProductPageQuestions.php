@@ -39,11 +39,17 @@ class ProductPageQuestions extends Template implements IdentityInterface
     protected $_currentCustomer;
 
     /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    protected $_storeManager;
+
+    /**
      * ProductPageQuestions constructor.
      * @param Template\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory $collectionFactory
      * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      * @param array $data
      */
     public function __construct(
@@ -51,14 +57,15 @@ class ProductPageQuestions extends Template implements IdentityInterface
         \Magento\Framework\Registry $registry,
         \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory $collectionFactory,
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         array $data = []
     )
     {
         $this->_coreRegistry = $registry;
         $this->_collection = $collectionFactory;
         $this->_currentCustomer = $currentCustomer;
+        $this->_storeManager = $storeManager;
         parent::__construct($context, $data);
-
     }
 
     /**
@@ -124,8 +131,10 @@ class ProductPageQuestions extends Template implements IdentityInterface
         if (!$productId) {
             return false;
         }
+        $storeId = $this->_storeManager->getStore()->getId();
         $result = $this->_collection->create();
         $result->addProductFilter($productId)
+            ->addStoreFilter($storeId)
             ->addVisibleFilter()
             ->setDateOrder();
 

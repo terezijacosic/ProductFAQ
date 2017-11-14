@@ -133,10 +133,22 @@
                 <label translate="true">Question</label>
             </settings>
         </column>
+        <column name="customer_name" class="Inchoo\ProductFAQ\Ui\Component\Listing\Column\ProductName">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer</label>
+            </settings>
+        </column>
         <column name="product_id">
             <settings>
                 <filter>text</filter>
                 <label translate="true">Product ID</label>
+            </settings>
+        </column>
+        <column name="product_name" class="Inchoo\ProductFAQ\Ui\Component\Listing\Column\ProductName">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product Name</label>
             </settings>
         </column>
         <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date"
@@ -148,7 +160,9 @@
                 <sorting>desc</sorting>
             </settings>
         </column>
-        <column name="is_visible">
+        <column name="is_visible" >
+            <!--<argument name="type" xsi:type="string">options</argument>-->
+            <!--<argument name="options" xsi:type="array" model="Inchoo\ProductFAQ\Model\Source\IsVisible"/>-->
             <settings>
                 <filter>text</filter>
                 <label translate="true">Visible on Frontend</label>

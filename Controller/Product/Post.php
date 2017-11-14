@@ -39,12 +39,19 @@ class Post extends \Magento\Framework\App\Action\Action
     protected $customerSession;
 
     /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    protected $storeManager;
+
+    /**
      * Post constructor.
      * @param Context $context
      * @param \Inchoo\ProductFAQ\Api\FaqsRepositoryInterface $faqsRepository
      * @param \Inchoo\ProductFAQ\Api\Data\FaqsInterfaceFactory $faqsModelFactory
      * @param \Magento\Framework\App\Request\Http $request
      * @param \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer
+     * @param \Magento\Customer\Model\Session $customerSession
+     * @param \Magento\Store\Model\StoreManagerInterface $storeManager
      */
     public function __construct(
         Context $context,
@@ -52,7 +59,8 @@ class Post extends \Magento\Framework\App\Action\Action
         \Inchoo\ProductFAQ\Api\Data\FaqsInterfaceFactory $faqsModelFactory,
         \Magento\Framework\App\Request\Http $request,
         \Magento\Customer\Helper\Session\CurrentCustomer $currentCustomer,
-        \Magento\Customer\Model\Session $customerSession
+        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Store\Model\StoreManagerInterface $storeManager
     )
     {
         parent::__construct($context);
@@ -61,6 +69,7 @@ class Post extends \Magento\Framework\App\Action\Action
         $this->request = $request;
         $this->currentCustomer = $currentCustomer;
         $this->customerSession = $customerSession;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -85,6 +94,7 @@ class Post extends \Magento\Framework\App\Action\Action
         $question = $this->request->getParam('question');
         $productId = $this->request->getParam('product_id');
         $customerId = $this->currentCustomer->getCustomerId();
+        $storeId = $this->storeManager->getStore()->getId();
 
         if (!$customerId) {
             $this->_redirect('catalog/product/view/id/' . $productId);
@@ -95,6 +105,7 @@ class Post extends \Magento\Framework\App\Action\Action
             $faqs->setQuestion($question);
             $faqs->setProductId($productId);
             $faqs->setCustomerId($customerId);
+            $faqs->setStoreId($storeId);
 
             $this->faqsRepository->save($faqs);
             $this->messageManager->addSuccessMessage(__('You submitted your question for moderation.'));

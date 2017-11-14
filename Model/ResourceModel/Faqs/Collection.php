@@ -47,6 +47,16 @@ class Collection extends AbstractCollection
     }
 
     /**
+     * @param $storeId
+     * @return $this
+     */
+    public function addStoreFilter($storeId)
+    {
+        $this->getSelect()->where('store_id = ?', $storeId);
+        return $this;
+    }
+
+    /**
      * @param string $dir
      * @return $this
      */

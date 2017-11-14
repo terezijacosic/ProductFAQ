@@ -128,6 +128,23 @@ class Faqs extends AbstractModel implements FaqsInterface
     /**
      * @return mixed
      */
+    public function getStoreId()
+    {
+        return $this->getData(self::STORE_ID);
+    }
+
+    /**
+     * @param $storeId
+     * @return $this
+     */
+    public function setStoreId($storeId)
+    {
+        return $this->setData(self::STORE_ID, $storeId);
+    }
+
+    /**
+     * @return mixed
+     */
     public function getCreatedAt()
     {
         return $this->getData(self::CREATED_AT);

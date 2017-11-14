@@ -46,7 +46,8 @@ class FaqsRepository implements FaqsRepositoryInterface
         \Inchoo\ProductFAQ\Model\ResourceModel\Faqs\CollectionFactory $faqCollectionFactory,
         \Inchoo\ProductFAQ\Api\Data\FaqsSearchResultsInterfaceFactory $searchResultsFactory,
         CollectionProcessorInterface $collectionProcessor
-    ) {
+    )
+    {
         $this->faqModelFactory = $faqModelFactory;
         $this->faqResource = $faqResource;
         $this->faqCollectionFactory = $faqCollectionFactory;
@@ -91,7 +92,6 @@ class FaqsRepository implements FaqsRepositoryInterface
      */
     public function delete(FaqsInterface $faq)
     {
-        // TODO: Implement delete() method.
         try {
             $this->faqResource->delete($faq);
         } catch (\Exception $exception) {
@@ -110,7 +110,7 @@ class FaqsRepository implements FaqsRepositoryInterface
         $this->save($faq);
     }
 
-     /**
+    /**
      * @param SearchCriteriaInterface $searchCriteria
      * @return FaqsSearchResultsInterface
      */
